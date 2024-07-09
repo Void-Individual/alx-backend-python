@@ -3,10 +3,12 @@
 
 import asyncio
 import time
+from typing import AsyncGenerator
+
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def run_task(task):
+async def run_task(task: AsyncGenerator[float, None]):
     """Coroutine to completely consume the yield values of
     an async generator"""
 
@@ -14,7 +16,7 @@ async def run_task(task):
         pass
 
 
-async def measure_runtime():
+async def measure_runtime() -> float:
     """Coroutine to run 4 async operations in parallel, measure
     the runtime and return it"""
 
