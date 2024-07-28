@@ -2,6 +2,7 @@
 """Test module for the utils file"""
 
 import unittest
+from unittest.mock import patch
 from parameterized import parameterized
 access_nested_map = __import__('utils').access_nested_map
 get_json = __import__('utils').get_json
@@ -25,7 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map_exception(self, nested_map, path, error):
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
-        self.assertEqual(str(context.exception), f"'{error}'")
+        self.assertEqual(repr(context.exception), f"KeyError('{error}')")
 
 
 class TestGetJson(unittest.TestCase):
@@ -35,18 +36,20 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @unittest.mock.patch('requests.get')
-    def test_get_json(self, url, test_payload, mock_get):
-        mock_response = unittest.mock.Mock()
-        mock_response.json.return_value = test_payload
-        mock_get.return_value = mock_response
+    def test_get_json(self, url, test_payload):
+        """Test to confirm that the utils.get_json function returns
+        the expected result"""
 
+        config = {'return_value.json.return_value': test_payload}
+        patcher = patch('requests.get', **config)
+        mock = patcher.start()
         result = get_json(url)
 
         # Test thata the get utput is equal to payload
         self.assertEqual(result, test_payload)
         # Test that the get method was called only once per input
-        mock_get.assert_called_once_with(url)
+        mock.assert_called_once()
+        patcher.stop()
 
 
 if __name__ == '__main__':
