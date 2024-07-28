@@ -60,6 +60,7 @@ class TestMemoize(unittest.TestCase):
         """Method to match the expected result of the memoize decorator"""
 
         class TestClass:
+            """ Test Class for wrapping with memoize """
 
             def a_method(self):
                 return 42
