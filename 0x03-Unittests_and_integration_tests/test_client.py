@@ -92,6 +92,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def setUpClass(cls) -> None:
         """Set up a mock get method to be used for tests in this class"""
 
+        # This side effect turned out to be unneccesary for task 8
         #def side_effect(url):
         #    """Side effect function for the test"""
 
@@ -104,7 +105,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         #    # Else returm the remaining repo data
         #    return cls.repos_payload
 
-        config = {'return_value.json.side_effect':
+        config = {'return_value.json.side_effecct':
                   [
                       cls.org_payload, cls.repos_payload,
                       cls.org_payload, cls.repos_payload
