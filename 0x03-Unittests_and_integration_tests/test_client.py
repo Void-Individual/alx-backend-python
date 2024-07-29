@@ -115,10 +115,10 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher = patch('requests.get', **config)
         cls.mock_get = cls.get_patcher.start()
 
-    # def test_public_repos(self):
-    #    """Method to test the integrated call"""
-    #    github_client = GithubOrgClient("org_name")
-    #    self.assertEqual(github_client.public_repos(), self.expected_repos)
+    def test_public_repos(self):
+        """Method to test the integrated call"""
+        github_client = GithubOrgClient("org_name")
+        self.assertEqual(github_client.public_repos(), self.expected_repos)
 
     @classmethod
     def tearDownClass(cls) -> None:
