@@ -38,21 +38,31 @@ class TestGithubOrgClient(unittest.TestCase):
         mock.assert_called_once()
         patcher.stop()
 
+    # Patch the requests.json call
     @patch('client.get_json')
     def test_public_repos(self, mock_json):
         """Test GithubOrgClient.public_repos to see if the list of
         repos is from the chosen payload"""
 
-        # Init the instance
+        # Set the payload result
         payload = [{"name": "Test_name"}]
+        # If get_json is called, make payload the result
         mock_json.return_value = payload
+        # Start a patch context with a mod for properties
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock) as mock:
+            # Set the resurn value of the patch to desired value
             mock.return_value = True
+            # Create an instance
             github_client = GithubOrgClient("org_name")
+            # Call the function that we want to test
             result = github_client.public_repos()
+            # Retrieve the expected result
             expected = [key['name'] for key in payload]
+            # Compare their values
             self.assertEqual(result, expected)
 
+            # COnfirm that both patched methods and properties
+            # were called only once
             mock.assert_called_once()
             mock_json.assert_called_once()
