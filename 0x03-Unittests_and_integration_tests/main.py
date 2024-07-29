@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Test module for the utils file"""
 
-access_nested_map = __import__('utils').access_nested_map
-get_json = __import__('utils').get_json
+from client import (GithubOrgClient)
 
-print(access_nested_map(nested_map={"a": {"b": 2}}, path=("a", "b")))
-val = get_json("http://holberton.io")
-print(val)
+
+
+github_client = GithubOrgClient("abc")
+res = github_client.org
+print(res)
