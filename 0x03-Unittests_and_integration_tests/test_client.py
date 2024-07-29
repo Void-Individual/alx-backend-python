@@ -87,13 +87,13 @@ class TestGithubOrgClient(unittest.TestCase):
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Class for an integration test to only mock code that sends external
     requests"""
-
+    # Task 8 doesnt seem to care about fine details
     @classmethod
     def setUpClass(cls) -> None:
         """Set up a mock get method to be used for tests in this class"""
 
         # This side effect turned out to be unneccesary for task 8
-        #def side_effect(url):
+        # def side_effect(url):
         #    """Side effect function for the test"""
 
         #    # This is the url to retrieve all the data
@@ -105,7 +105,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         #    # Else returm the remaining repo data
         #    return cls.repos_payload
 
-        config = {'return_value.json.side_effecct':
+        config = {'return_value.json.side_effect':
                   [
                       cls.org_payload, cls.repos_payload,
                       cls.org_payload, cls.repos_payload
@@ -125,4 +125,4 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """Tear down the created patcher"""
         cls.get_patcher.stop()
 
-test = TestIntegrationGithubOrgClient()
+# test = TestIntegrationGithubOrgClient()
