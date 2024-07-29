@@ -61,10 +61,12 @@ class TestMemoize(unittest.TestCase):
             """ Test Class for wrapping with memoize """
 
             def a_method(self):
+                """Faux method to return a value"""
                 return 42
 
             @memoize
             def a_property(self):
+                """Implement the memoize property"""
                 return self.a_method()
 
         with patch.object(TestClass, 'a_method') as mock_method:
