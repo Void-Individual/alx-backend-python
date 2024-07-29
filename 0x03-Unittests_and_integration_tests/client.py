@@ -31,14 +31,14 @@ class GithubOrgClient:
     def _public_repos_url(self) -> str:
         """Public repos URL"""
         x = self.org
-        #print(x)
+        print(x)
         return x["repos_url"]
 
     @memoize
     def repos_payload(self) -> Dict:
         """Memoize repos payload"""
         res = self._public_repos_url
-        #print(res)
+        print(res)
         return get_json(res)
 
     def public_repos(self, license: str = None) -> List[str]:

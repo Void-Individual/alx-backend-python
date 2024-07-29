@@ -3,7 +3,7 @@
 
 from client import (GithubOrgClient)
 
-
+payload = "org_payload"
 
 github_client = GithubOrgClient("abc")
 res = github_client.org
