@@ -30,16 +30,21 @@ class GithubOrgClient:
     @property
     def _public_repos_url(self) -> str:
         """Public repos URL"""
-        return self.org["repos_url"]
+        x = self.org
+        #print(x)
+        return x["repos_url"]
 
     @memoize
     def repos_payload(self) -> Dict:
         """Memoize repos payload"""
-        return get_json(self._public_repos_url)
+        res = self._public_repos_url
+        #print(res)
+        return get_json(res)
 
     def public_repos(self, license: str = None) -> List[str]:
         """Public repos"""
         json_payload = self.repos_payload
+        #print(json_payload)
         public_repos = [
             repo["name"] for repo in json_payload
             if license is None or self.has_license(repo, license)
