@@ -25,3 +25,15 @@ class TestGithubOrgClient(unittest.TestCase):
         github_client.org
         mock.assert_called_once()
         patcher.stop()
+
+    def test_public_repos_url(self):
+        """Test GithubOrgClient._public_repos_url for expected result"""
+
+        config = {'return_value.json.return_value': {"repos_url": True}}
+        patcher = patch('requests.get', **config)
+        mock = patcher.start()
+
+        github_client = GithubOrgClient("org_name")
+        github_client._public_repos_url
+        mock.assert_called_once()
+        patcher.stop()
