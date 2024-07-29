@@ -120,6 +120,13 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         github_client = GithubOrgClient("org_name")
         self.assertEqual(github_client.public_repos(), self.expected_repos)
 
+    def test_public_repos_with_license(self):
+        """Test pthe public repos with a license"""
+
+        github_client = GithubOrgClient("org_name")
+        result = github_client.public_repos(license="apache-2.0")
+        self.assertEqual(result, self.apache2_repos)
+
     @classmethod
     def tearDownClass(cls) -> None:
         """Tear down the created patcher"""
