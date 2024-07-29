@@ -46,7 +46,6 @@ class TestGithubOrgClient(unittest.TestCase):
         # Init the instance
         payload = [{"name": "Test_name"}]
         mock_json.return_value = payload
-        #patcher = patch('client.GithubOrgClient._public_repos_url', config)
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock) as mock:
             mock.return_value = True
